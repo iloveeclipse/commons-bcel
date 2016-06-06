@@ -168,19 +168,22 @@ public final class ClassParser {
             //        }
             //      }
         } finally {
-            // Read everything of interest, so close the file
-            if (fileOwned) {
-                try {
-                    if (dataInputStream != null) {
-                        dataInputStream.close();
-                    }
-                    if (zip != null) {
-                        zip.close();
-                    }
-                } catch (IOException ioe) {
-                    //ignore close exceptions
-                }
-            }
+        	if (fileOwned) {
+				try {
+				    if (dataInputStream != null) {
+				        dataInputStream.close();
+				    }
+				} catch (IOException ioe) {
+				    //ignore close exceptions
+				}
+			}
+			try {
+				if (zip != null) {
+					zip.close();
+				}
+			} catch (IOException ioe) {
+				//ignore close exceptions
+			}
         }
         // Return the information we have gathered in a new object
         return new JavaClass(class_name_index, superclass_name_index, file_name, major, minor,
